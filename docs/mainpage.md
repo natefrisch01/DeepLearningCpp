@@ -6,7 +6,7 @@ code implements the nn described in the first two chapters of Michael Nielsen's
 book, *Neural Networks and Deep Learning*.
 
 # Access #
-GitHub:
+GitHub: https://github.com/natefrisch01/DeepLearningCpp
 Documentation: https://natesnote.com/DeepLearningCpp
 
 # Acknowledgments #
@@ -14,3 +14,5 @@ Implements *Neural Networks and Deep Learning*, located at
 http://neuralnetworksanddeeplearning.com/
 Heavily adapted from
 https://github.com/MichalDanielDobrzanski/DeepLearningPython35
+
+Copyright (c) 2020 Nathanael Frisch
