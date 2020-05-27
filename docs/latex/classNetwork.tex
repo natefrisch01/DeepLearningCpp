@@ -1,0 +1,223 @@
+\hypertarget{classNetwork}{}\section{Network Class Reference}
+\label{classNetwork}\index{Network@{Network}}
+
+
+Stores a Neural network and implements methods for performing stochastic gradient descent.  
+
+
+
+
+{\ttfamily \#include $<$network.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classNetwork_aa6382995a4a0bc915d12d794eb584adf}{Network} (std\+::vector$<$ int $>$ \&sizes)
+\item 
+Eigen\+::\+Vector\+Xd \hyperlink{classNetwork_a4fba84f6e70a7c89fff90091efd51679}{feed\+Forward} (Eigen\+::\+Vector\+Xd \&input)
+\item 
+void \hyperlink{classNetwork_acdb38726769a9f571f09a5f10f6b6847}{S\+GD} (std\+::vector$<$ sample $>$ \&training\+\_\+data, int epochs, int mini\+\_\+batch\+\_\+size, int eta, std\+::vector$<$ sample $>$ \&test\+\_\+data)
+\item 
+void \hyperlink{classNetwork_af736bbf264f09be714d5961ef670a5cb}{update\+\_\+mini\+\_\+batch} (std\+::vector$<$ sample $>$ \&mini\+\_\+batch, int eta)
+\item 
+std\+::pair$<$ bias\+\_\+list, weight\+\_\+list $>$ \hyperlink{classNetwork_a657a8db0aad5e948118f188b19d8584c}{backprop} (Eigen\+::\+Vector\+Xd \&in, Eigen\+::\+Vector\+Xd \&desired\+\_\+out)
+\item 
+double \hyperlink{classNetwork_a062ac4352c92fc2bd88b51bbc29c25a4}{evaluate} (std\+::vector$<$ sample $>$ test\+\_\+data)
+\item 
+Eigen\+::\+Vector\+Xd \hyperlink{classNetwork_a108865a0ac7351810451cf9ee60b57ed}{cost\+\_\+derivative} (Eigen\+::\+Vector\+Xd \&output\+\_\+activations, Eigen\+::\+Vector\+Xd \&desired\+\_\+out)
+\item 
+Eigen\+::\+Vector\+Xd \hyperlink{classNetwork_a1d50530a35db77496d47d5662154830a}{sigmoid} (Eigen\+::\+Vector\+Xd)
+\item 
+Eigen\+::\+Vector\+Xd \hyperlink{classNetwork_a8569e18257ede199f14febf93e44968f}{sigmoid\+\_\+prime} (Eigen\+::\+Vector\+Xd \&)
+\item 
+Eigen\+::\+Matrix\+Xd \hyperlink{classNetwork_a97f385db3fd78d16a73a7f8b2d18f968}{colvec\+\_\+dot\+\_\+rowvec} (Eigen\+::\+Vector\+Xd col, Eigen\+::\+Vector\+Xd row)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores a Neural network and implements methods for performing stochastic gradient descent. 
+
+This class is a cpp adaptation of the first two chapters in Micheal\+Nielsen\textquotesingle{}s book on neural networks and deep learning, found at \href{http://neuralnetworksanddeeplearning.com/}{\tt http\+://neuralnetworksanddeeplearning.\+com/}. It stores a neural network as a vector of vectors for biases and a vector of matrices for weights.
+
+\begin{DoxyAuthor}{Author}
+Nathanael Frisch 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+May 2020 
+\end{DoxyDate}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classNetwork_aa6382995a4a0bc915d12d794eb584adf}\label{classNetwork_aa6382995a4a0bc915d12d794eb584adf}} 
+\index{Network@{Network}!Network@{Network}}
+\index{Network@{Network}!Network@{Network}}
+\subsubsection{\texorpdfstring{Network()}{Network()}}
+{\footnotesize\ttfamily Network\+::\+Network (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$ \&}]{sizes }\end{DoxyParamCaption})}
+
+Initializes the neural network (nn). Accepts a vector of sizes, the first index corresponding to the number of neurons in the input layer, the last index corresponding to the number of neurons in the output layer, and the middle values corresponding to hidden layers.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sizes} & vector of layer sizes. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classNetwork_a657a8db0aad5e948118f188b19d8584c}\label{classNetwork_a657a8db0aad5e948118f188b19d8584c}} 
+\index{Network@{Network}!backprop@{backprop}}
+\index{backprop@{backprop}!Network@{Network}}
+\subsubsection{\texorpdfstring{backprop()}{backprop()}}
+{\footnotesize\ttfamily std\+::pair$<$bias\+\_\+list, weight\+\_\+list$>$ Network\+::backprop (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd \&}]{in,  }\item[{Eigen\+::\+Vector\+Xd \&}]{desired\+\_\+out }\end{DoxyParamCaption})}
+
+The heart of the nn\textquotesingle{}s ability to learn. It performs gradient descent, starting with the output layer and propogates backwards.
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & input layer activation. \\
+\hline
+{\em desired\+\_\+out} & desired output. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pair of a list of biases and a list of weights, the desired nudges to them from this one training example. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_a97f385db3fd78d16a73a7f8b2d18f968}\label{classNetwork_a97f385db3fd78d16a73a7f8b2d18f968}} 
+\index{Network@{Network}!colvec\+\_\+dot\+\_\+rowvec@{colvec\+\_\+dot\+\_\+rowvec}}
+\index{colvec\+\_\+dot\+\_\+rowvec@{colvec\+\_\+dot\+\_\+rowvec}!Network@{Network}}
+\subsubsection{\texorpdfstring{colvec\+\_\+dot\+\_\+rowvec()}{colvec\_dot\_rowvec()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Network\+::colvec\+\_\+dot\+\_\+rowvec (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd}]{col,  }\item[{Eigen\+::\+Vector\+Xd}]{row }\end{DoxyParamCaption})}
+
+This is a weird one, but it\textquotesingle{}s used in backprop. Takes a column vector and a row vector, multiplies each element in the column by each element in the row and, instead of summing, returns a matrix for each individual product.
+
+
+\begin{DoxyParams}{Parameters}
+{\em col} & column vector. \\
+\hline
+{\em row} & row vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a matrix as described above. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_a108865a0ac7351810451cf9ee60b57ed}\label{classNetwork_a108865a0ac7351810451cf9ee60b57ed}} 
+\index{Network@{Network}!cost\+\_\+derivative@{cost\+\_\+derivative}}
+\index{cost\+\_\+derivative@{cost\+\_\+derivative}!Network@{Network}}
+\subsubsection{\texorpdfstring{cost\+\_\+derivative()}{cost\_derivative()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd Network\+::cost\+\_\+derivative (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd \&}]{output\+\_\+activations,  }\item[{Eigen\+::\+Vector\+Xd \&}]{desired\+\_\+out }\end{DoxyParamCaption})}
+
+The derivative of the cost function. In this case simply simply the actual output activations -\/ the desired output (elementwise).
+
+
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+activations} & actual output activations. \\
+\hline
+{\em desired\+\_\+out} & desired output activations. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+derivative of the cost function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_a062ac4352c92fc2bd88b51bbc29c25a4}\label{classNetwork_a062ac4352c92fc2bd88b51bbc29c25a4}} 
+\index{Network@{Network}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!Network@{Network}}
+\subsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily double Network\+::evaluate (\begin{DoxyParamCaption}\item[{std\+::vector$<$ sample $>$}]{test\+\_\+data }\end{DoxyParamCaption})}
+
+Feed forward a vector of samples. Return the percentage of samples that it classifies correctly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em test\+\_\+data} & vector of samples. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+percentage of samples correctly classified. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_a4fba84f6e70a7c89fff90091efd51679}\label{classNetwork_a4fba84f6e70a7c89fff90091efd51679}} 
+\index{Network@{Network}!feed\+Forward@{feed\+Forward}}
+\index{feed\+Forward@{feed\+Forward}!Network@{Network}}
+\subsubsection{\texorpdfstring{feed\+Forward()}{feedForward()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd Network\+::feed\+Forward (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd \&}]{input }\end{DoxyParamCaption})}
+
+Feeds forward a vector of activations from the first input layer to the output layer, returning a the vector of activations at the output layer. Input vector size must be equal to the number of neurons in the input layer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & vector of activations at input layer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output activations. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_acdb38726769a9f571f09a5f10f6b6847}\label{classNetwork_acdb38726769a9f571f09a5f10f6b6847}} 
+\index{Network@{Network}!S\+GD@{S\+GD}}
+\index{S\+GD@{S\+GD}!Network@{Network}}
+\subsubsection{\texorpdfstring{S\+G\+D()}{SGD()}}
+{\footnotesize\ttfamily void Network\+::\+S\+GD (\begin{DoxyParamCaption}\item[{std\+::vector$<$ sample $>$ \&}]{training\+\_\+data,  }\item[{int}]{epochs,  }\item[{int}]{mini\+\_\+batch\+\_\+size,  }\item[{int}]{eta,  }\item[{std\+::vector$<$ sample $>$ \&}]{test\+\_\+data }\end{DoxyParamCaption})}
+
+Performs stochastic gradient descent on the nn.
+
+
+\begin{DoxyParams}{Parameters}
+{\em training\+\_\+data} & a std\+::vector of type sample i.\+e. a list of pairs of input activations and desired output activations. Used for training. \\
+\hline
+{\em epochs} & number of times to train on the entire dataset. \\
+\hline
+{\em eta} & learning rate. \\
+\hline
+{\em test\+\_\+data} & a std\+::vector of type sample i.\+e. a list of pairs of input activations and desired output activations. Used for evaluate. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetwork_a1d50530a35db77496d47d5662154830a}\label{classNetwork_a1d50530a35db77496d47d5662154830a}} 
+\index{Network@{Network}!sigmoid@{sigmoid}}
+\index{sigmoid@{sigmoid}!Network@{Network}}
+\subsubsection{\texorpdfstring{sigmoid()}{sigmoid()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd Network\+::sigmoid (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd}]{ }\end{DoxyParamCaption})}
+
+Element-\/wise squishification btw. 0 and 1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & to be squished. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+squished vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_a8569e18257ede199f14febf93e44968f}\label{classNetwork_a8569e18257ede199f14febf93e44968f}} 
+\index{Network@{Network}!sigmoid\+\_\+prime@{sigmoid\+\_\+prime}}
+\index{sigmoid\+\_\+prime@{sigmoid\+\_\+prime}!Network@{Network}}
+\subsubsection{\texorpdfstring{sigmoid\+\_\+prime()}{sigmoid\_prime()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd Network\+::sigmoid\+\_\+prime (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd \&}]{ }\end{DoxyParamCaption})}
+
+Derivative of squishification function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & to be derived. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+derivative of the squish function. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetwork_af736bbf264f09be714d5961ef670a5cb}\label{classNetwork_af736bbf264f09be714d5961ef670a5cb}} 
+\index{Network@{Network}!update\+\_\+mini\+\_\+batch@{update\+\_\+mini\+\_\+batch}}
+\index{update\+\_\+mini\+\_\+batch@{update\+\_\+mini\+\_\+batch}!Network@{Network}}
+\subsubsection{\texorpdfstring{update\+\_\+mini\+\_\+batch()}{update\_mini\_batch()}}
+{\footnotesize\ttfamily void Network\+::update\+\_\+mini\+\_\+batch (\begin{DoxyParamCaption}\item[{std\+::vector$<$ sample $>$ \&}]{mini\+\_\+batch,  }\item[{int}]{eta }\end{DoxyParamCaption})}
+
+Performs backprop on each sample from a mini batch of the data (a smaller subset of the full training data), then updates the weights and biases.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mini\+\_\+batch} & a std\+::vector of type sample i.\+e. a list of pairs of input activations and desired output activations.\\
+\hline
+{\em eta} & learning rate. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/nathanael/tensorflow/\+Deep\+Learning\+Cpp/include/network.\+h\end{DoxyCompactItemize}
