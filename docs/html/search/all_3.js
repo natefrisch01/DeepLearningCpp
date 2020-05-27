@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['feedforward',['feedForward',['../classNetwork.html#a4fba84f6e70a7c89fff90091efd51679',1,'Network']]]
+  ['evaluate',['evaluate',['../classNetwork.html#a062ac4352c92fc2bd88b51bbc29c25a4',1,'Network']]]
 ];

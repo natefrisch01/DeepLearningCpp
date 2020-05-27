@@ -2,7 +2,7 @@
 \label{classNetwork}\index{Network@{Network}}
 
 
-Stores a Neural network and implements methods for performing stochastic gradient descent.  
+Stores a eural network (nn) and implements methods for performing stochastic gradient descent.  
 
 
 
@@ -35,7 +35,7 @@ Eigen\+::\+Matrix\+Xd \hyperlink{classNetwork_a97f385db3fd78d16a73a7f8b2d18f968}
 
 
 \subsection{Detailed Description}
-Stores a Neural network and implements methods for performing stochastic gradient descent. 
+Stores a eural network (nn) and implements methods for performing stochastic gradient descent. 
 
 This class is a cpp adaptation of the first two chapters in Micheal\+Nielsen\textquotesingle{}s book on neural networks and deep learning, found at \href{http://neuralnetworksanddeeplearning.com/}{\tt http\+://neuralnetworksanddeeplearning.\+com/}. It stores a neural network as a vector of vectors for biases and a vector of matrices for weights.
 
@@ -54,7 +54,7 @@ May 2020
 \subsubsection{\texorpdfstring{Network()}{Network()}}
 {\footnotesize\ttfamily Network\+::\+Network (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$ \&}]{sizes }\end{DoxyParamCaption})}
 
-Initializes the neural network (nn). Accepts a vector of sizes, the first index corresponding to the number of neurons in the input layer, the last index corresponding to the number of neurons in the output layer, and the middle values corresponding to hidden layers.
+Initializes the neural network. Accepts a vector of sizes, the first index corresponding to the number of neurons in the input layer, the last index corresponding to the number of neurons in the output layer, and the middle values corresponding to hidden layers.
 
 
 \begin{DoxyParams}{Parameters}

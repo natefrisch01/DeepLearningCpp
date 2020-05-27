@@ -10,11 +10,14 @@ Network::Network(std::vector<int> &sizes) {
     //assign member variables
     this->num_layers = sizes.size();
     this->sizes = sizes;
+
+    //this guy somehow makes ::Random() actually random >u<. Goes btw. 0 and -1
     std::srand((unsigned int) time(0));
+
     for (int i = 1; i < num_layers; i++) {
         //random bias vector for each layer after the input layer
         //size of vector corresponds to number of neurons, because each neuron
-        //has 1 bias
+        //has 1 bias.
         Eigen::VectorXd layer_i_biases = Eigen::VectorXd::Random(sizes[i]);
         biases.push_back(layer_i_biases);
 
@@ -27,13 +30,16 @@ Network::Network(std::vector<int> &sizes) {
 }
 
 Eigen::VectorXd Network::feedForward(Eigen::VectorXd &a) {
+    //for each layer before the last one, dot product of weights to the next
+    //layer with the activation at the current layer, + the biases to the next
+    //layer
     for (int i = 0; i < num_layers-1; i++) {
         a = sigmoid((weights[i] * a) + biases[i]);
     }
     return a;
 }
 
-//element-wise squishification
+//element-wise squishification (forces to be btw -1 and 1)
 Eigen::VectorXd Network::sigmoid(Eigen::VectorXd z) {
     for(int i = 0; i < z.size(); i++) {
         z[i] = 1.0 / (1 + std::exp(z[i]*-1));
@@ -41,10 +47,12 @@ Eigen::VectorXd Network::sigmoid(Eigen::VectorXd z) {
     return z;
 }
 
+//takes vector, and performs squishy derivative.
 Eigen::VectorXd Network::sigmoid_prime(Eigen::VectorXd &z) {
     return (Eigen::VectorXd::Ones(z.size())-sigmoid(z)).cwiseProduct(sigmoid(z));
 }
 
+//derivative of cost function, output activation - desired out
 Eigen::VectorXd Network::cost_derivative(Eigen::VectorXd &output_activations, Eigen::VectorXd &desired_out) {
     return output_activations - desired_out;
 }
@@ -64,8 +72,10 @@ std::pair<bias_list, weight_list> Network::backprop(Eigen::VectorXd &in, Eigen::
     // vector to store all the activations after sigmoid
     std::vector<Eigen::VectorXd> activation_list;
     activation_list.push_back(in);
+
     // vector to store all the activations before sigmoid
     std::vector<Eigen::VectorXd> z_list;
+
     // current activation
     Eigen::VectorXd activation = in;
 
@@ -80,11 +90,16 @@ std::pair<bias_list, weight_list> Network::backprop(Eigen::VectorXd &in, Eigen::
     }
 
     //backprop
+
     //start with last layer
+    //compute error and multiply by the derivative of the activation in the last
+    //layer.
     Eigen::VectorXd delta = cost_derivative(activation_list.back(),
         desired_out).cwiseProduct(sigmoid_prime(z_list.back()));
-    nabla_b.back() = delta;
 
+    //simply shift the biases by delta
+    nabla_b.back() = delta;
+    
     nabla_w.back() = colvec_dot_rowvec(delta, activation_list[activation_list.size()-2].transpose());
 
     for (int i = 2; i < num_layers; i++) {

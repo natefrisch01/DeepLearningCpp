@@ -23,7 +23,7 @@ A std::vector of Eigen::MatrixXd, making a vector of weight vectors.
 typedef std::vector<Eigen::MatrixXd> weight_list;
 
 /**
-@brief Stores a Neural network and implements methods for performing
+@brief Stores a eural network (nn) and implements methods for performing
 stochastic gradient descent.
 
 This class is a cpp adaptation of the first two chapters in MichealNielsen's
@@ -45,7 +45,7 @@ private:
 
 public:
     /**
-    Initializes the neural network (nn). Accepts a vector of
+    Initializes the neural network. Accepts a vector of
     sizes, the first index corresponding to the number of neurons in the input
     layer, the last index corresponding to the number of neurons in the output
     layer, and the middle values corresponding to hidden layers.
