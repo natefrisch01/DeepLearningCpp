@@ -1,6 +1,6 @@
 # README #
 
-git clone --recurse-submodules https://github.com/natefrisch01/DeepLearningCpp.git
+`git clone --recurse-submodules https://github.com/natefrisch01/DeepLearningCpp.git`
 
 # Overview #
 Deep Learning C++ (DLCPP) is a small software package that implements a neural
